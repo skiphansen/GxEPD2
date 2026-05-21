@@ -18,9 +18,9 @@
 // NOTE: you may need to adapt or select for your wiring in the processor specific conditional compile sections below
 
 // select the display class (only one), matching the kind of display panel
-#define GxEPD2_DISPLAY_CLASS GxEPD2_BW
+//#define GxEPD2_DISPLAY_CLASS GxEPD2_BW
 //#define GxEPD2_DISPLAY_CLASS GxEPD2_3C
-//#define GxEPD2_DISPLAY_CLASS GxEPD2_4C
+#define GxEPD2_DISPLAY_CLASS GxEPD2_4C
 //#define GxEPD2_DISPLAY_CLASS GxEPD2_7C
 //#define GxEPD2_DISPLAY_CLASS GxEPD2_BW_SHM
 
@@ -133,6 +133,8 @@
 //#define GxEPD2_DRIVER_CLASS GxEPD2_it78_1872x1404 // ED078KC2 1872x1404
 //#define GxEPD2_DRIVER_CLASS GxEPD2_it103_1872x1404 // ES103TC1 1872x1404
 
+#define GxEPD2_DRIVER_CLASS GxEPD2_740c_E2741QS0B3 
+
 // SS is usually used for CS. define here for easy change
 #ifndef EPD_CS
 #define EPD_CS SS
@@ -187,7 +189,8 @@
 #define MAX_HEIGHT(EPD) (EPD::HEIGHT <= (MAX_DISPLAY_BUFFER_SIZE) / (EPD::WIDTH / 2) ? EPD::HEIGHT : (MAX_DISPLAY_BUFFER_SIZE) / (EPD::WIDTH / 2))
 #endif
 // adapt the constructor parameters to your wiring
-GxEPD2_DISPLAY_CLASS<GxEPD2_DRIVER_CLASS, MAX_HEIGHT(GxEPD2_DRIVER_CLASS)> display(GxEPD2_DRIVER_CLASS(/*CS=*/ EPD_CS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7));
+// GxEPD2_DISPLAY_CLASS<GxEPD2_DRIVER_CLASS, MAX_HEIGHT(GxEPD2_DRIVER_CLASS)> display(GxEPD2_DRIVER_CLASS(/*CS=*/ EPD_CS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7));
+GxEPD2_DISPLAY_CLASS<GxEPD2_DRIVER_CLASS, MAX_HEIGHT(GxEPD2_DRIVER_CLASS)> display(GxEPD2_DRIVER_CLASS(/*CS=*/ 8, /*DC=*/ 10, /*RST=*/ 38, /*BUSY=*/ 7));
 // for Arduino Micro or Arduino Leonardo with CS on 10 on my proto boards (SS would be 17) uncomment instead:
 //GxEPD2_DISPLAY_CLASS<GxEPD2_DRIVER_CLASS, MAX_HEIGHT(GxEPD2_DRIVER_CLASS)> display(GxEPD2_DRIVER_CLASS(/*CS=*/ 10, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7));
 #endif
