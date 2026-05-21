@@ -1,5 +1,29 @@
 #include "GxEPD2_740c_E2741QS0B3.h"
 
+// #define CABLE_AT_TOP
+
+#ifdef CABLE_AT_TOP
+   // 00 0 0 0 0 0 1 1 
+   // 00 RES: - 800 x 600
+   // 0 PST_MODE: Power switching time in the period of frame scanning.
+   // 0 X
+   // 0 Ud: 0xScan down
+   // 0 SHL: shift right
+   // 1 SHD_N: Booster on
+   // 1 RST_N: not reset
+   #define PSR_ARG0  0x3
+#else
+   // 00 0 0 0 0 1 1 1 
+   // 00 RES: - 800 x 600
+   // 0 PST_MODE: Power switching time in the period of frame scanning.
+   // 0 X
+   // 0 Ud: 0xScan down
+   // 1 SHL: shift left
+   // 1 SHD_N: Booster on
+   // 1 RST_N: not reset
+   #define PSR_ARG0  0x7
+#endif
+
 #define ENABLE_LOGGING  0
 #if ENABLE_LOGGING && __has_include("logging.h") 
 #include "logging.h"
@@ -983,14 +1007,7 @@ static const uint8_t epd_E2741Q_init[] PROGMEM = {
 // (PWR): Power setting Register ?? JD79665AA shows 6 parameters
    2,0x01,0x07,
    3,0x00,  //  (PSR): Panel setting Register
-   0x07, // 00 0 0 0 0 1 1 1 
-         // 00 RES: - 800 x 600
-         // 0 PST_MODE: Power switching time in the period of frame scanning.
-         // 0 X
-         // 0 Ud: 0xScan down
-         // 1 SHL: shift left
-         // 1 SHD_N: Booster on
-         // 1 RST_N: not reset
+   PSR_ARG0,
    0xAB, // 1 0 1 0 1 0 1 1
          // 1 LUT_EN: Using LUT from register
          // 0 X
@@ -1005,16 +1022,8 @@ static const uint8_t epd_E2741Q_init[] PROGMEM = {
    0x01,0xE0,  // 0x1e0: 480
    0x03,0x20,  // 0x320: 800
 
-   3,0x00,     //PSB
-   0x07,
-      //  00 RES: - 800 x 600
-      //  0 PST_MODE: Power switching time in the period of frame scanning.
-      //  0 X
-      //  0 Ud: 0xScan down
-      //  1 SHL: shift left
-      //  1 SHD_N: Booster on
-      //  1 RST_N: not reset
-
+   3,0x00,     //PSR
+   PSR_ARG0,
    0x2B,   // 0 0 1 0 1 0 1 1
       // 0 LUT_EN: Using LUT from MTP
       // 0 X
