@@ -5,7 +5,7 @@ support for Pervasive Display's 7.4" BWRY EPD (E2741QS0B3).
 
 Unfortunately (and understandably) ZinggJM doesn't accept PRs.
 
-While there is public documentation and a driver for the display buit it is
+While there is public documentation and a driver for the display but it is
 disappointing.  
 
 [BWRY Tech Doc](https://docs.pervasivedisplays.com/knowledge/Hardware/epd-usage/Screens/BWRY_Medium/index.html)<br>
